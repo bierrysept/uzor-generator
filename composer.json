@@ -1,0 +1,27 @@
+{
+    "name": "bierrysept/uzor-generator",
+    "description": "My Humble uzor (idk how will it be in English) generator",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "license": "GNU GPL",
+    "autoload": {
+        "psr-4": {
+            "Bierrysept\\UzorGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bierrysept\\UzorGenerator\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "bierrysept",
+            "email": "bierrysept@gmail.com"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {}
+}
