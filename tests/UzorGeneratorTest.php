@@ -37,8 +37,19 @@ class UzorGeneratorTest extends TestCase
         $this->assertInstanceOf(Image::class, $uzor0);
         $this->assertEquals(0, $uzor0->getPixel(0, 0));
         $this->assertEquals(0, $uzor0->getPixel(0, 1));
+
+        $uzor1 = $uzors[1];
+        $this->assertInstanceOf(Image::class, $uzor1);
+        $this->assertEquals(0, $uzor1->getPixel(0, 0));
+        $this->assertEquals(1, $uzor1->getPixel(0, 1));
     }
 
+    public function test2x2UzorGenerator(): void
+    {
+        $generator = new UzorGenerator(2,2);
+        $uzors = $generator->getAllUzors();
+        $this->assertCount(4, $uzors);
+    }
 
     public function testXxXUzorGenerator(): void
     {
