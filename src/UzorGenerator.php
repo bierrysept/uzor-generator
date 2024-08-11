@@ -17,7 +17,7 @@ class UzorGenerator
     {
         $width = $this->width;
         $height= $this->height;
-        return array_fill(0, $width*$height, new Image());
+        return array_fill(0, $width*$height, new Image($width,$height));
     }
 
 }

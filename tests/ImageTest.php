@@ -2,11 +2,15 @@
 
 namespace Bierrysept\UzorGenerator\Tests;
 
+use Bierrysept\UzorGenerator\Exceptions\ImageOutOfRangeException;
 use Bierrysept\UzorGenerator\Image;
 use PHPUnit\Framework\TestCase;
 
 class ImageTest extends TestCase
 {
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function testImageColorSwitch()
     {
         $image = new Image(1,1,2);
@@ -19,6 +23,27 @@ class ImageTest extends TestCase
         $this->assertEquals(0, $image->getPixel(0,0));
     }
 
+    /**
+     * @throws ImageOutOfRangeException
+     */
+    public function testImageShift() {
+        $image = new Image(1,3,2);
+        $image->setPixel(0,2,1);
+
+        $this->assertEquals(0, $image->getPixel(0,0));
+        $this->assertEquals(0, $image->getPixel(0,1)); // 001
+        $this->assertEquals(1, $image->getPixel(0,2));
+
+        $image->leftShift(1);
+
+        $this->assertEquals(0, $image->getPixel(0,0));
+        $this->assertEquals(1, $image->getPixel(0,1)); // 001
+        $this->assertEquals(0, $image->getPixel(0,2));
+    }
+
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function testImage1x1()
     {
         $image = new Image();
@@ -28,6 +53,9 @@ class ImageTest extends TestCase
         $this->assertEquals(1, $image->getPixel(0,0));
     }
 
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function testImageColor3Switch()
     {
         $image = new Image(1, 1,3);
@@ -43,6 +71,9 @@ class ImageTest extends TestCase
         $this->assertEquals(0, $image->getPixel(0,0));
     }
 
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function testImage2x2()
     {
         $image = new Image(2,2,2);

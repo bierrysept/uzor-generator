@@ -48,4 +48,9 @@ class Image
     {
         $this->pixels[$x][$y] = $color;
     }
+
+    public function leftShift(int $int)
+    {
+
+    }
 }
