@@ -27,18 +27,25 @@ class ImageTest extends TestCase
      * @throws ImageOutOfRangeException
      */
     public function testImageShift() {
-        $image = new Image(1,3,2);
-        $image->setPixel(0,2,1);
+        $image = new Image(3,1,2);
+        $image->setPixel(2,0,1);
 
         $this->assertEquals(0, $image->getPixel(0,0));
-        $this->assertEquals(0, $image->getPixel(0,1)); // 001
-        $this->assertEquals(1, $image->getPixel(0,2));
+        $this->assertEquals(0, $image->getPixel(1,0)); // 001
+        $this->assertEquals(1, $image->getPixel(2,0));
 
         $image->leftShift(1);
 
         $this->assertEquals(0, $image->getPixel(0,0));
-        $this->assertEquals(1, $image->getPixel(0,1)); // 001
-        $this->assertEquals(0, $image->getPixel(0,2));
+        $this->assertEquals(1, $image->getPixel(1,0)); // 010
+        $this->assertEquals(0, $image->getPixel(2,0));
+    }
+
+    public function testSetImageOutOfRange(){
+        $image = new Image(3,1,2);
+        $this->expectException(ImageOutOfRangeException::class);
+        $image->setPixel(0,2,1);
+        $image->setPixel(0,1,1);
     }
 
     /**

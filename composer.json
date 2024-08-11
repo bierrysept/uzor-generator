@@ -23,5 +23,11 @@
         }
     ],
     "minimum-stability": "alpha",
-    "require": {}
+    "require": {},
+    "scripts": {
+        "generate":"\\Bierrysept\\UzorGenerator\\ViewGenerator::run"
+    },
+    "config": {
+        "bin-dir": "scripts"
+    }
 }

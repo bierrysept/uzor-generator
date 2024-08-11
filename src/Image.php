@@ -44,13 +44,32 @@ class Image
         }
     }
 
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function setPixel(int $x, int $y, int $color)
     {
+        if ($x >= $this->width || $y >= $this->height) {
+            throw new ImageOutOfRangeException();
+        }
+
         $this->pixels[$x][$y] = $color;
     }
 
-    public function leftShift(int $int)
+    public function leftShift(int $step)
     {
+        if ($step == 0) {
+            return $this->pixels;
+        }
 
+        $outPixels = $this->pixels;
+        $moveColumn = $this->pixels[0];
+        $count = count($this->pixels) - 1;
+        for ($i = 0; $i < $count; $i++) {
+            $outPixels[$i] = $outPixels[$i+1];
+        }
+        $outPixels[$count] = $moveColumn;
+        $this->pixels = $outPixels;
+        return $this->leftShift($step-1);
     }
 }
