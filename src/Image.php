@@ -72,4 +72,14 @@ class Image
         $this->pixels = $outPixels;
         return $this->leftShift($step-1);
     }
+
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
 }

@@ -25,7 +25,9 @@
     "minimum-stability": "alpha",
     "require": {},
     "scripts": {
-        "generate":"\\Bierrysept\\UzorGenerator\\ViewGenerator::run"
+        "generate":"Bierrysept\\UzorGenerator\\ViewGenerator::run",
+        "testArguments":"Bierrysept\\UzorGenerator\\ViewGenerator::testComposerArgument",
+        "all-images":"Bierrysept\\UzorGenerator\\ViewGenerator::runAllImages"
     },
     "config": {
         "bin-dir": "scripts"
