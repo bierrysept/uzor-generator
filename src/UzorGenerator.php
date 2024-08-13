@@ -24,7 +24,7 @@ class UzorGenerator
         return array_fill(0, $width*$height, new Image($width,$height));
     }
 
-    public function getAllImages()
+    public function getAllImages(): array
     {
         $color = $this->color;
         $imageCount = $color ** ($this->width * $this->height);
@@ -44,21 +44,7 @@ class UzorGenerator
      */
     public function getImageByIndex(int $i): Image
     {
-        $colorsInt = $i;
-        $color = $this->color;
-        $image = new Image($this->width, $this->height, $color);
-        for ($y = 0; $y < $this->height; $y++) {
-            for ($x = 0; $x < $this->width; $x++) {
-                if (!$colorsInt) {
-                    break 2;
-                }
-                $curColor = $colorsInt % $color;
-                $colorsInt = (int) $colorsInt / $color;
-
-                $image->setPixel($x, $y, $curColor);
-            }
-        }
-        return $image;
+        return Image::getByIndex($i, $this->width, $this->height, $this->color);
     }
 
 }

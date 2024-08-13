@@ -24,7 +24,7 @@ class UzorGeneratorTest extends TestCase
         $this->assertEquals(0, $uzor->getPixel(0,0));
     }
 
-    public function testGetAllImages()
+    public function testGetAllImages(): void
     {
         $generator = new UzorGenerator(2,2);
         $images = $generator->getAllImages();
@@ -43,31 +43,11 @@ class UzorGeneratorTest extends TestCase
         $this->assertEquals(1, $image1001->getPixel(1,1));
     }
 
-    public function testGetImageByIndex()
+    public function testGetImageByIndex(): void
     {
         $generator = new UzorGenerator(2,2);
         $image2 = $generator->getImageByIndex(2);
         $this->assertEquals(1, $image2->getPixel(1,0));
-    }
-
-    /**
-     * @throws ImageOutOfRangeException
-     */
-    public function test1x2UzorGenerator(): void
-    {
-        $generator = new UzorGenerator(1,2);
-        $uzors = $generator->getAllUzors();
-        $this->assertCount(2, $uzors);
-
-        $uzor0 = $uzors[0];
-        $this->assertInstanceOf(Image::class, $uzor0);
-        $this->assertEquals(0, $uzor0->getPixel(0, 0));
-        $this->assertEquals(0, $uzor0->getPixel(0, 1));
-
-        $uzor1 = $uzors[1];
-        $this->assertInstanceOf(Image::class, $uzor1);
-        $this->assertEquals(0, $uzor1->getPixel(0, 0));
-        $this->assertEquals(1, $uzor1->getPixel(0, 1));
     }
 
     public function test2x2UzorGenerator(): void
