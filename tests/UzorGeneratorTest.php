@@ -43,6 +43,14 @@ class UzorGeneratorTest extends TestCase
         $this->assertEquals(1, $image1001->getPixel(1,1));
     }
 
+    public function testGenerate1x2Images()
+    {
+        $generator = new UzorGenerator(2,1);
+        $uzor = $generator->getAllUzors();
+        $this->assertCount(2, $uzor);
+
+    }
+
     public function testGetImageByIndex(): void
     {
         $generator = new UzorGenerator(2,2);

@@ -27,6 +27,7 @@
     "scripts": {
         "generate":"Bierrysept\\UzorGenerator\\ViewGenerator::run",
         "testArguments":"Bierrysept\\UzorGenerator\\ViewGenerator::testComposerArgument",
+        "all-uzors": "Bierrysept\\UzorGenerator\\ViewGenerator::runAllUzors",
         "all-images":"Bierrysept\\UzorGenerator\\ViewGenerator::runAllImages"
     },
     "config": {

@@ -19,9 +19,28 @@ class UzorGenerator
     }
     public function getAllUzors(): array
     {
-        $width = $this->width;
-        $height= $this->height;
-        return array_fill(0, $width*$height, new Image($width,$height));
+        $allUzors = [];
+        $imageCount = $this->color ** ($this->width * $this->height);
+        for ($i = 0; $i < $imageCount; $i++) {
+            if (isset($allUzors[$i])) {
+                continue;
+            }
+            $allUzors[$i] = $i;
+            $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
+            $image->colorNextSwitch();
+            $invertedImageIndex = $image->getIndex();
+            $allUzors[$invertedImageIndex] = $allUzors[$invertedImageIndex] ?? $i;
+        }
+
+        $outUzors = [];
+        foreach ($allUzors as $uzor) {
+            if (isset($outUzors[$uzor])) {
+                continue;
+            }
+            $outUzors[$uzor] = Image::getByIndex($uzor, $this->width, $this->height, $this->color);
+        }
+
+        return $outUzors;
     }
 
     public function getAllImages(): array

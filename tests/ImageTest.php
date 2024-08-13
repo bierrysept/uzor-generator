@@ -26,7 +26,7 @@ class ImageTest extends TestCase
     /**
      * @throws ImageOutOfRangeException
      */
-    public function testImageShift() {
+    public function testImageLeftShift() {
         $image = new Image(3,1,2);
         $image->setPixel(2,0,1);
 
@@ -39,6 +39,24 @@ class ImageTest extends TestCase
         $this->assertEquals(0, $image->getPixel(0,0));
         $this->assertEquals(1, $image->getPixel(1,0)); // 010
         $this->assertEquals(0, $image->getPixel(2,0));
+    }
+
+    /**
+     * @throws ImageOutOfRangeException
+     */
+    public function testImageRightShift() {
+        $image = new Image(3,1,2);
+        $image->setPixel(1,0,1);
+
+        $this->assertEquals(0, $image->getPixel(0,0));
+        $this->assertEquals(1, $image->getPixel(1,0)); // 010
+        $this->assertEquals(0, $image->getPixel(2,0));
+
+        $image->rightShift(1);
+
+        $this->assertEquals(0, $image->getPixel(0,0));
+        $this->assertEquals(0, $image->getPixel(1,0)); // 001
+        $this->assertEquals(1, $image->getPixel(2,0));
     }
 
     public function testSetImageOutOfRange(){
@@ -103,5 +121,23 @@ class ImageTest extends TestCase
         $this->assertEquals(0, $image->getPixel(0,1));// 10
         $this->assertEquals(0, $image->getPixel(1,0));// 01
         $this->assertEquals(1, $image->getPixel(1,1));
+    }
+
+    public function testGetIndex()
+    {
+        $image = new Image(2,2,2);
+        $this->assertEquals(0, $image->getIndex());
+
+        $image->setPixel(0,0, 1);
+        $this->assertEquals(1, $image->getIndex());
+
+        $image->setPixel(1,0, 1);
+        $this->assertEquals(3, $image->getIndex());
+
+        $image->setPixel(1,1, 1);
+        $this->assertEquals(11, $image->getIndex());
+
+        $image->setPixel(0,1, 1);
+        $this->assertEquals(15, $image->getIndex());
     }
 }

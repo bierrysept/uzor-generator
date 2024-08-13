@@ -56,7 +56,7 @@ class Image
         $this->pixels[$x][$y] = $color;
     }
 
-    public function leftShift(int $step): Image
+    public function leftShift(int $step=1): Image
     {
         if ($step === 0) {
             return $this;
@@ -102,5 +102,34 @@ class Image
             }
         }
         return $image;
+    }
+
+    public function getIndex(): int
+    {
+        $i = 0;
+        for ($y = $this->height-1; $y >= 0; $y--) {
+            for($x = $this->width-1; $x >= 0; $x--) {
+                $i *= $this->colorAmount;
+                $i += $this->getPixel($x, $y);
+            }
+        }
+        return $i;
+    }
+
+    public function rightShift(int $step=1): Image
+    {
+        if ($step === 0) {
+            return $this;
+        }
+
+        $outPixels = $this->pixels;
+        $count = count($this->pixels);
+        $moveColumn = $this->pixels[$count-1];
+        for ($i = $count-1; $i > 0; $i--) {
+            $outPixels[$i] = $outPixels[$i-1];
+        }
+        $outPixels[0] = $moveColumn;
+        $this->pixels = $outPixels;
+        return $this->leftShift($step-1);
     }
 }
