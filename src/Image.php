@@ -35,7 +35,7 @@ class Image
         return $this->pixels[$x][$y];
     }
 
-    public function colorNextSwitch()
+    public function colorNextSwitch(): void
     {
         foreach ($this->pixels as $x => $row) {
             foreach ($row as $y => $pixel) {
@@ -47,7 +47,7 @@ class Image
     /**
      * @throws ImageOutOfRangeException
      */
-    public function setPixel(int $x, int $y, int $color)
+    public function setPixel(int $x, int $y, int $color): void
     {
         if ($x >= $this->width || $y >= $this->height) {
             throw new ImageOutOfRangeException();
@@ -56,30 +56,51 @@ class Image
         $this->pixels[$x][$y] = $color;
     }
 
-    public function leftShift(int $step)
+    public function leftShift(int $step): Image
     {
-        if ($step == 0) {
-            return $this->pixels;
+        if ($step === 0) {
+            return $this;
         }
 
         $outPixels = $this->pixels;
         $moveColumn = $this->pixels[0];
-        $count = count($this->pixels) - 1;
-        for ($i = 0; $i < $count; $i++) {
+        $lastColumnIndex = count($this->pixels) - 1;
+        for ($i = 0; $i < $lastColumnIndex; $i++) {
             $outPixels[$i] = $outPixels[$i+1];
         }
-        $outPixels[$count] = $moveColumn;
+        $outPixels[$lastColumnIndex] = $moveColumn;
         $this->pixels = $outPixels;
         return $this->leftShift($step-1);
     }
 
-    public function getHeight()
+    public function getHeight(): int
     {
         return $this->height;
     }
 
-    public function getWidth()
+    public function getWidth(): int
     {
         return $this->width;
+    }
+
+    /**
+     * @throws ImageOutOfRangeException
+     */
+    public static function getByIndex(int $index, int $width = 1, int $height = 1, int $colorAmount = 2): Image
+    {
+        $colorsInt = $index;
+        $image = new Image($width, $height, $colorAmount);
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                if (!$colorsInt) {
+                    break 2;
+                }
+                $curColor = $colorsInt % $colorAmount;
+                $colorsInt = (int) $colorsInt / $colorAmount;
+
+                $image->setPixel($x, $y, $curColor);
+            }
+        }
+        return $image;
     }
 }
