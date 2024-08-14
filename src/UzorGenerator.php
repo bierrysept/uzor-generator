@@ -17,6 +17,7 @@ class UzorGenerator
         $this->height = $height;
         $this->width = $width;
     }
+
     public function getAllUzors(): array
     {
         $allUzors = [];
@@ -26,6 +27,7 @@ class UzorGenerator
                 continue;
             }
             $allUzors[$i] = $i;
+            
             $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
             $image->colorNextSwitch();
             $invertedImageIndex = $image->getIndex();

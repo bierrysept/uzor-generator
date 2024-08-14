@@ -14,6 +14,10 @@ use Composer\Script\Event;
 /** @usedby \Composer\Autoload\ClassLoader */
 class ViewGenerator
 {
+    static private array $colors = [
+        " ", "█","▓","░","▒"
+    ];
+
     public static function run(Event $event): void
     {
         /** @var string[] $args */
@@ -78,7 +82,7 @@ class ViewGenerator
             echo "Image #$key\n";
             for ($y = 0; $y < $image->getHeight(); $y++) {
                 for ($x = 0; $x < $image->getWidth(); $x++) {
-                    echo $image->getPixel($x, $y) ? "W" : "_";
+                    echo static::$colors[$image->getPixel($x, $y)] ?? chr(61+$image->getPixel($x, $y));
                 }
                 echo "\n";
             }
