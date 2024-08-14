@@ -6,7 +6,7 @@ use Bierrysept\UzorGenerator\Exceptions\ImageOutOfRangeException;
 use Bierrysept\UzorGenerator\Image;
 use PHPUnit\Framework\TestCase;
 
-class ImageTest extends TestCase
+class ImageGeneratorTest extends TestCase
 {
     /**
      * @throws ImageOutOfRangeException
@@ -18,6 +18,20 @@ class ImageTest extends TestCase
 
         $image->colorNextSwitch();
         $this->assertEquals(1, $image->getPixel(0,0));
+
+        $image->colorNextSwitch();
+        $this->assertEquals(0, $image->getPixel(0,0));
+    }
+
+    public function testImage3ColorShift() {
+        $image = new Image(1,1,3);
+        $this->assertEquals(0, $image->getPixel(0,0));
+
+        $image->colorNextSwitch();
+        $this->assertEquals(1, $image->getPixel(0,0));
+
+        $image->colorNextSwitch();
+        $this->assertEquals(2, $image->getPixel(0,0));
 
         $image->colorNextSwitch();
         $this->assertEquals(0, $image->getPixel(0,0));
