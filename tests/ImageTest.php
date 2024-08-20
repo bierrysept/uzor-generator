@@ -44,6 +44,24 @@ class ImageTest extends TestCase
     /**
      * @throws ImageOutOfRangeException
      */
+    public function testImageUpShift() {
+        $image = new Image(1,3,2);
+        $image->setPixel(0,1,1);
+
+        $this->assertEquals(0, $image->getPixel(0,0)); // 0
+        $this->assertEquals(1, $image->getPixel(0,1)); // 1
+        $this->assertEquals(0, $image->getPixel(0,2)); // 0
+
+        $image->upShift(1);
+
+        $this->assertEquals(1, $image->getPixel(0,0)); // 0
+        $this->assertEquals(0, $image->getPixel(0,1)); // 0
+        $this->assertEquals(0, $image->getPixel(0,2)); // 1
+    }
+
+    /**
+     * @throws ImageOutOfRangeException
+     */
     public function testImageRightShift() {
         $image = new Image(3,1,2);
         $image->setPixel(1,0,1);

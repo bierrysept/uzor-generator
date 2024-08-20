@@ -132,4 +132,22 @@ class Image
         $this->pixels = $outPixels;
         return $this->leftShift($step-1);
     }
+
+    public function upShift(int $step = 1)
+    {
+        if ($step === 0) {
+            return $this;
+        }
+
+        $outPixels = $this->pixels;
+        $moveColumn = array_column($outPixels, 0);
+        foreach ($outPixels as $x => $column) {
+            for ($y = 0; $y < $this->height-1; $y++) {
+                $outPixels[$x][$y] = $outPixels[$x][$y+1];
+            }
+            $outPixels[$x][$this->height-1] = $moveColumn[$x];
+        }
+        $this->pixels = $outPixels;
+        return $this->upShift($step-1);
+    }
 }

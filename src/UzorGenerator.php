@@ -32,6 +32,16 @@ class UzorGenerator
             $image->colorNextSwitch();
             $invertedImageIndex = $image->getIndex();
             $allUzors[$invertedImageIndex] = $allUzors[$invertedImageIndex] ?? $i;
+
+            $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
+            $image->rightShift();
+            $leftShiftImageIndex = $image->getIndex();
+            $allUzors[$leftShiftImageIndex] = $allUzors[$leftShiftImageIndex] ?? $i;
+
+            $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
+            $image->upShift();
+            $upShiftImageIndex = $image->getIndex();
+            $allUzors[$upShiftImageIndex] = $allUzors[$upShiftImageIndex] ?? $i;
         }
 
         $outUzors = [];
