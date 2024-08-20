@@ -27,11 +27,7 @@ class UzorGenerator
                 continue;
             }
             $allUzors[$i] = $i;
-            
-            $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
-            $image->colorNextSwitch();
-            $invertedImageIndex = $image->getIndex();
-            $allUzors[$invertedImageIndex] = $allUzors[$invertedImageIndex] ?? $i;
+            $allUzors = $this->getAllNextColors($i, $allUzors);
 
             $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
             $image->rightShift();
@@ -76,6 +72,23 @@ class UzorGenerator
     public function getImageByIndex(int $i): Image
     {
         return Image::getByIndex($i, $this->width, $this->height, $this->color);
+    }
+
+    /**
+     * @param int $i
+     * @param array $allUzors
+     * @return array
+     * @throws ImageOutOfRangeException
+     */
+    public function getAllNextColors(int $i, array $allUzors): array
+    {
+        $image = Image::getByIndex($i, $this->width, $this->height, $this->color);
+        for ($j = 1; $j < $this->color; $j++) {
+            $image->colorNextSwitch();
+            $nextColorSetImageIndex = $image->getIndex();
+            $allUzors[$nextColorSetImageIndex] = $allUzors[$nextColorSetImageIndex] ?? $i;
+        }
+        return $allUzors;
     }
 
 }

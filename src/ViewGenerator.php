@@ -78,8 +78,9 @@ class ViewGenerator
      */
     public static function echoImages(array $uzors): void
     {
+        $i = 0;
         foreach ($uzors as $key => $image) {
-            echo "Image #$key\n";
+            echo "Image #$i\n";
             for ($y = 0; $y < $image->getHeight(); $y++) {
                 for ($x = 0; $x < $image->getWidth(); $x++) {
                     echo static::$colors[$image->getPixel($x, $y)] ?? chr(61+$image->getPixel($x, $y));
@@ -87,6 +88,7 @@ class ViewGenerator
                 echo "\n";
             }
             echo "\n";
+            $i++;
         }
     }
 }

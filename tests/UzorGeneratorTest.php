@@ -62,7 +62,7 @@ class UzorGeneratorTest extends TestCase
     {
         $generator = new UzorGenerator(2,2);
         $uzors = $generator->getAllUzors();
-        $this->assertCount(4, $uzors);
+        $this->assertCount(8, $uzors);
     }
 
     public function testXxXUzorGenerator(): void
